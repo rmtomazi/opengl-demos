@@ -70,7 +70,8 @@ void display()
 	if(ativarEscala)
 		escala += direcaoEscala*0.01;
 
-	if(escala >= 4) direcaoEscala *= -1.0;
+	if(escala >= 5) direcaoEscala = -1.0;
+	if(escala <= 0.1) direcaoEscala = 1.0;
 
 	if(translacao >= 1) direcaoTranslacao = -1.0;
 	if(translacao <= -1) direcaoTranslacao = 1.0;

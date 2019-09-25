@@ -11,10 +11,9 @@
 #include <iostream> 
 
 // The coordinates for the vertices of the cube
-float scaleX = 1.f;
-float scaleY = 1.f;
-
-float x = 0.0, direcao = 1.0;
+float x = 0.0, direcaoX = 1.0;
+float escala1 = 1.0;
+float escala2 = 1.0, direcaoEscala2 = 1.0;
 
 void display()
 {
@@ -29,9 +28,9 @@ void display()
 	//Exercício 1: Fazer um programa que desenhe um quadrado. Esse quadrado altera
 	//sua escala conforme o usuário pressiona as teclas 2, 3, 4, etc. Tecla 2
 	//significa 2x escala em x e y
-	/*
 	// Rotate when user changes rX and rY
-	glScalef(scaleX, scaleY, 0.f);
+	/*
+	glScalef(escala1, escala1, 0.f);
 	glColor3f(0.f, 1.f, 0.f);
 	glBegin(GL_LINES);
 		glVertex2f(-0.1, -0.1);
@@ -54,75 +53,102 @@ void display()
 	//Exercício 2: Desenhar um quadrado na tela, que se move da direita para
 	//a esquerda (e vice-verso), mas ao longo do movimento, o quadrado
 	//aumenta e diminui a escala
+	/*
+	glScalef(escala2, escala2, 0.f);
 	glColor3f(0.f, 0.f, 1.f);
 	glBegin(GL_LINES);
-		glVertex3f(-0.2 + x, 0.2f, 0.f);
-		glVertex3f(0.2 + x, 0.2f, 0.f);
+		glVertex3f(-0.1 + x, 0.1, 0.f);
+		glVertex3f(0.1 + x, 0.1, 0.f);
 	glEnd();
 	glBegin(GL_LINES);
-		glVertex3f(0.2 + x, 0.2f, 0.f);
-		glVertex3f(0.2 + x, -0.2f, 0.f);
+		glVertex3f(0.1 + x, 0.1, 0.f);
+		glVertex3f(0.1 + x, -0.1, 0.f);
 	glEnd();
 	glBegin(GL_LINES);
-		glVertex3f(0.2 + x, -0.2f, 0.f);
-		glVertex3f(-0.2 + x, -0.2f, 0.f);
+		glVertex3f(0.1 + x, -0.1, 0.f);
+		glVertex3f(-0.1 + x, -0.1, 0.f);
 	glEnd();
 	glBegin(GL_LINES);
-		glVertex3f(-0.2 + x, -0.2f, 0.f);
-		glVertex3f(-0.2 + x, 0.2f, 0.f);
+		glVertex3f(-0.1 + x, -0.1, 0.f);
+		glVertex3f(-0.1 + x, 0.1, 0.f);
 	glEnd();
-	x += direcao * 0.005;
-	if(x >= 0.8f || x <= -0.8f) direcao *= (-1.0);
+	escala2 += direcaoEscala2*0.01;
+	if(escala2 >= 3) direcaoEscala2 = -1.0;
+	if(escala2 <= 0.5) direcaoEscala2 = 1.0;
+	x += direcaoX * 0.01;
+	if(x * escala2 >= 1.0) direcaoX = -1.0;
+	if(x * escala2 <= -1.0) direcaoX = 1.0;
+	*/
 
 	//Exercício 3: Desenhar dois quadrados que trocam sua escala em ordem inversa
-
-
+	
+	glLoadIdentity();
+	glScalef(escala2, escala2, 0.f);
+	glColor3f(0.f, 0.f, 1.f);
+	glBegin(GL_LINES);
+		glVertex3f(-0.3, 0.1, 0.f);
+		glVertex3f(-0.1, 0.1, 0.f);
+	glEnd();
+	glBegin(GL_LINES);
+		glVertex3f(-0.1, 0.1, 0.f);
+		glVertex3f(-0.1, -0.1, 0.f);
+	glEnd();
+	glBegin(GL_LINES);
+		glVertex3f(-0.1, -0.1, 0.f);
+		glVertex3f(-0.3, -0.1, 0.f);
+	glEnd();
+	glBegin(GL_LINES);
+		glVertex3f(-0.3, -0.1, 0.f);
+		glVertex3f(-0.3, 0.1, 0.f);
+	glEnd();
+	glLoadIdentity();
+	glScalef(3.5-escala2, 3.5-escala2, 0.f);
+	glColor3f(1.f, 0.f, 0.f);
+	glBegin(GL_LINES);
+		glVertex3f(0.1, 0.1, 0.f);
+		glVertex3f(0.3, 0.1, 0.f);
+	glEnd();
+	glBegin(GL_LINES);
+		glVertex3f(0.3, 0.1, 0.f);
+		glVertex3f(0.3, -0.1, 0.f);
+	glEnd();
+	glBegin(GL_LINES);
+		glVertex3f(0.3, -0.1, 0.f);
+		glVertex3f(0.1, -0.1, 0.f);
+	glEnd();
+	glBegin(GL_LINES);
+		glVertex3f(0.1, -0.1, 0.f);
+		glVertex3f(0.1, 0.1, 0.f);
+	glEnd();
+	escala2 += direcaoEscala2*0.01;
+	if(escala2 >= 3) direcaoEscala2 = -1.0;
+	if(escala2 <= 0.5) direcaoEscala2 = 1.0;
 	glFlush();
 	glutSwapBuffers();
 }
 
 void keyboard(unsigned char key, int x, int y)
 {
-	if (key == '1'){
-		scaleX = 1.f;
-		scaleY = 1.f;
-	}
-	else if (key == '2'){
-		scaleX = 2.f;
-		scaleY = 2.f;
-	}
-	else if (key == '3'){
-		scaleX = 3.f;
-		scaleY = 3.f;
-	}
-	else if (key == '4'){
-		scaleX = 4.f;
-		scaleY = 4.f;
-	}
-	else if (key == '5'){
-		scaleX = 5.f;
-		scaleY = 5.f;
-	}
-	else if (key == '6'){
-		scaleX = 6.f;
-		scaleY = 6.f;
-	}
-	else if (key == '7'){
-		scaleX = 7.f;
-		scaleY = 7.f;
-	}
-	else if (key == '8'){
-		scaleX = 8.f;
-		scaleY = 8.f;
-	}
-	else if (key == '9'){
-		scaleX = 9.f;
-		scaleY = 9.f;
-	}
-	else if (key == '0'){
-		scaleX = 0.f;
-		scaleY = 0.f;
-	}
+	if (key == '1')
+		escala1 = 1.f;
+	else if (key == '2')
+		escala1 = 2.f;
+	else if (key == '3')
+		escala1 = 3.f;
+	else if (key == '4')
+		escala1 = 4.f;
+	else if (key == '5')
+		escala1 = 5.f;
+	else if (key == '6')
+		escala1 = 6.f;
+	else if (key == '7')
+		escala1 = 7.f;
+	else if (key == '8')
+		escala1 = 8.f;
+	else if (key == '9')
+		escala1 = 9.f;
+	else if (key == '0')
+		escala1 = 0.f;
 
 	// Request display update
 	glutPostRedisplay();
@@ -148,6 +174,7 @@ int main(int argc, char **argv)
 
 	// Callback functions
 	glutDisplayFunc(display);
+	glutIdleFunc(display);
 	glutKeyboardFunc(keyboard);
 
 	// Pass control to GLUT for events

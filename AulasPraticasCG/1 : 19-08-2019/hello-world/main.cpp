@@ -101,7 +101,8 @@ int main() {
 			glVertex3f(-0.2 + x, 0.2f, 0.f);
 		glEnd();
 		x += direcao * 0.005;
-		if(x >= 0.8f || x <= -0.8f) direcao *= (-1.0);
+		if(x >= 0.8f) direcao = -1.0;
+		if(x <= -0.8f) direcao = 1.0;
 		*/
 
 		//Exercicio 5: O mesmo que o 4, mas com 2 quadrados de cores diferentes e em
@@ -142,7 +143,8 @@ int main() {
 			glVertex3f(-0.2 - x, 0.2f, 0.f);
 		glEnd();
 		x += direcao * 0.005;
-		if(x >= 0.8f || x <= -0.8f) direcao *= (-1.0);
+		if(x >= 0.8f) direcao = -1.0;
+		if(x <= -0.8f) direcao = 1.0;
 		
 
 		glfwSwapBuffers(window);
